@@ -155,7 +155,7 @@ The macro expansion has relatively low overhead in space or time."
    [[:b3 :d4 :g4] 3/16][[:b3 :d4 :g4] 1/16] [[:d4 :f4 :a4] 1/4] [[:b3 :d4 :g4] 1/2]
    [[:f4 :g4 :b4 :d5] 1/4] [[:e4 :g4 :c4] 3/4]
    [[:c4 :e4 :g4] 3/16][[:c4 :e4 :g4] 1/16] [[:c5 :e5 :g5] 1/4] [[:g4 :c4 :e5] 1/2]
-   [[:e4 :g4 :c5] 1/4] [[:d4 :f4 :g4 :b4] 3/16] [[:d4 :f4 :a4] 1/16] [[:d4 :f4 :a4] 1/2]
+   [[:e4 :g4 :c5] 1/4] [[:d4 :f4 :g4 :b4] 3/16] [[:d4 :f4 :a4] 1/16] [[:d4 :f4 :a4] 3/4] ;; (fermata)
    [[:b4 :d5 :f5] 3/16] [[:b4 :d5 :f5] 1/16] [[:g4 :c4 :e5] 1/4] [[:e4 :g4 :c5] 1/2]
    [[:f4 :g4 :b4 :d5] 1/4] [[:e4 :g4 :c4] 3/4]
    ])
@@ -226,8 +226,8 @@ The macro expansion has relatively low overhead in space or time."
      (every? integer? chord) (guitar-strum g chord direction interval time)
      (every? keyword? chord) (strum-chord time (chord-to-fingers chord) direction interval)
      :else (throw (ex-info "bad chord" {:chord chord}))))
-  ([time chord direction] (strum-chord time chord direction 0.2))
-  ([time chord] (strum-chord time chord :down 0.2)))
+  ([time chord direction] (strum-chord time chord direction 0.1))
+  ([time chord] (strum-chord time chord :down 0.1)))
 
 (defn play-phrase-g1
   [start base-duration phrase]
@@ -235,8 +235,54 @@ The macro expansion has relatively low overhead in space or time."
          notes phrase]
     (when (seq notes)
       (let [[[strums duration] & more] notes]
-        (DBG :ppg1 time strums)
         (strum-chord time strums)
         (recur (+ time (* base-duration duration)) more)))))
 
 (defn gg [x] (play-phrase-g1 (now) (* 4 60 1.0e3 1/90) x))
+
+
+(do
+(def g4-c [:g3 :c4 :e4 :g4])
+(def e4-c [:e3 :g3 :c4 :e4])
+(def a4-am7 [:g3 :c4 :e4 :a4])
+(def c5-c [:c4 :e4 :g4 :c5])
+(def b5-c7 [:c4 :e4 :g4 :b5])
+(def a4-f [:a3 :c4 :f4 :a4])
+(def f4-g7 [:g3 :b3 :d4 :f4])
+(def d4-g [:d3 :g3 :b3 :d4])
+(def g4-g [:g3 :b3 :d4 :g4])
+(def d5-bm [:d4 :f4 :b4 :d5])
+(def c5-dm7 [:d4 :f4 :a4 :c5])
+(def b4-g7 [:d4 :f4 :g4 :b4])
+(def a4-bm7 [:b3 :d4 :f4 :a4])
+(def a4-am7 [:g3 :c4 :e4 :a4])
+(def e5-c#dim [:e4 :g4 :c#5 :e5])
+(def d5-edim7 [:e4 :g4 :bb4 :d5])
+(def c#5-a7 [:e4 :g4 :a4 :c#5])
+(def bb4-c#dim7- [:c#4 :e4 :g4 :bb4])
+(def bb4-bb7 [:a3 :d4 :f4 :bb4])
+(def a4-dm [:a3 :d4 :f4 :a4])
+(def d5-dm [:d4 :f4 :a4 :d5])
+(def f5-dm [:d4 :f4 :a4 :f5])
+(def d5-m [:d4 :f4 :a4 :d5])
+(def e5-c [:e4 :g4 :c4 :e5])
+(def d5-g [:d4 :g4 :b4 :d5])
+(def g4-g7 [:b3 :d4 :f4 :g4])
+(def f5-g7 [:g4 :b4 :d5 :f5])
+(def d5-c9x7 [:c4 :e4 :g4 :d5])
+(def e5-e9x7 [:f4 :g4 :b4 :e5])
+
+(def rocky-sabaki
+  [[g4-c 3/8][e4-c 1/4][a4-am7 1/8][g4-c 3/8][e4-c 1/4][g4-c 1/8]
+     [c5-c 1/4][b5-c7 1/8][a4-f 1/4][g4-c 1/8][f4-g7 3/8][d4-g 3/8]
+   [f4-g7 3/8][d4-g 1/4][g4-g 1/8][f4-g7 3/8][d4-g 1/4][f4-g7 1/8]
+     [d5-bm 1/4][c5-dm7 1/8][b4-g7 1/4][a4-bm7 1/8][a4-am7 1/4][g4-c 1/8][e4-c 3/8]
+   [g4-c 3/8][e4-c 1/4][a4-am7 1/8][g4-c 3/8][e4-c 1/4][g4-c 1/8]
+     [e5-c#dim 1/4][d5-edim7 1/8][c#5-a7 1/4][bb4-c#dim7- 1/8][bb4-bb7 1/4][a4-dm 1/8][d5-dm 3/8]
+   [f5-dm 3/8][d5-m 1/4][f5-dm 1/8][e5-c 3/8][c5-c 1/4][e5-c 1/8]
+     [d5-g 3/8][g4-g7 1/4][f5-g7 1/8][e5-c 3/8][c5-c 1/8][d5-c9x7 1/8][e5-c 1/8]
+   [f5-dm 3/8][d5-m 1/4][f5-dm 1/8][e5-c 3/8][c5-c 1/4][e5-c 1/8]
+     [d5-g 3/8][g4-g7 (+ 1/4 1/8)][e5-e9x7 (+ 1/4 1/2)][d5-bm 1/8][c5-c (+ 5/8 6/8)]
+]))
+
+;(gg rocky-sabaki)
