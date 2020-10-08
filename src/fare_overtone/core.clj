@@ -218,7 +218,7 @@ The macro expansion has relatively low overhead in space or time."
 ;piano/piano
 
 (def g (guitar))
-(ctl g :pre-amp 80.0 :distort 0.2)
+(ctl g :pre-amp 80.0 :distort 0.1)
 
 (defn strum-chord
   ([time chord direction interval]
@@ -242,6 +242,21 @@ The macro expansion has relatively low overhead in space or time."
 
 
 (do
+(def c4-c [:c3 :e3 :g3 :c4])
+(def g3-c [:g2 :c3 :e3 :g3])
+(def e3-c [:g2 :c3 :e3]) ;; :e2
+(def f3-g7 [:b2 :d3 :f3]) ;; :g2
+(def b3-g7 [:d3 :f3 :g3 :b3])
+(def bes3-bes [:bb2 :d3 :f3 :bb3])
+(def d3-bes [:f2 :bb2 :d3])
+(def d4-bes [:d3 :f3 :bb3 :d4])
+(def f3-bes [:bb2 :d3 :f3])
+(def ees3-ees [:g2 :bb2 :eb3])
+(def c4-bes9 [:bb2 :d3 :f3 :a3 :c4]) ; XXX ???
+(def bes3-bes [:bb2 :d3 :f3 :bb3])
+(def f4-f [:f3 :a3 :c4 :f4])
+
+
 (def g4-c [:g3 :c4 :e4 :g4])
 (def e4-c [:e3 :g3 :c4 :e4])
 (def a4-am7 [:g3 :c4 :e4 :a4])
@@ -272,7 +287,7 @@ The macro expansion has relatively low overhead in space or time."
 (def d5-c9x7 [:c4 :e4 :g4 :d5])
 (def e5-e9x7 [:f4 :g4 :b4 :e5])
 
-(def rocky-sabaki
+(def rocky-sabaki ;; http://fare.livejournal.com/166932.html
   [[g4-c 3/8][e4-c 1/4][a4-am7 1/8][g4-c 3/8][e4-c 1/4][g4-c 1/8]
      [c5-c 1/4][b5-c7 1/8][a4-f 1/4][g4-c 1/8][f4-g7 3/8][d4-g 3/8]
    [f4-g7 3/8][d4-g 1/4][g4-g 1/8][f4-g7 3/8][d4-g 1/4][f4-g7 1/8]
@@ -286,3 +301,37 @@ The macro expansion has relatively low overhead in space or time."
 ]))
 
 ;(gg rocky-sabaki)
+
+
+(def leonora-s-song
+  [;; bar 1
+   [g4-c 1/8][g4-c 1/16][f4-g7 1/16]
+   [e4-c 1/8][d4-g 1/16][f4-g7 1/16]
+   [e4-c 1/8][c4-c 1/8]
+   [g3-c 1/8][e3-c 1/16][f3-g7 1/16]
+   ;; bar 2
+   [g3-c 1/8][g3-c 1/16][b3-g7 1/16]
+   [c4-c 1/8][c4-c 1/16][e4-c 1/16]
+   [f4-g7 1/4]
+   [d4-g 1/4]
+   ;; bar 3
+   [f4-g7 1/8][f4-g7 1/16][e4-c 1/16]
+   [d4-bes 1/8][bes3-bes 1/16][c4-bes9 1/16]
+   [d4-bes 1/8][bes3-bes 1/8]
+   [f3-bes 1/8][d3-bes 1/16][ees3-ees 1/16]
+   ;; bar 4
+   [[:bb2 :d3 :f3] 1/8][[:f2 :f3] 1/16][[:f3 :a3] 1/16]
+   [[:bb3] 1/8][[:d4] 1/16][[:f4] 1/16]
+   [[:e4] 1/4]
+   [[:c#4] 1/4]
+   ;; bar 5
+   [g4-c 1/8][g4-c 1/16][f4-g7 1/16]
+   [e4-c 1/8][d4-g 1/16][f4-g7 1/16]
+   [e4-c 1/8][c4-c 1/8]
+   [g3-c 1/8][e3-c 1/16][f3-g7 1/16]
+   ;; bar 6
+   [g3-c 1/8][g3-c 1/16][b3-g7 1/16]
+   [c4-c 1/8][c4-c 1/16][e4-c 1/16]
+   [a4-f 1/4]
+   [f4-f 1/4]
+   ])

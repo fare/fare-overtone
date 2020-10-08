@@ -44,3 +44,9 @@ your option) any later version.
 * <http://java.about.com/od/Handling-Events/ss/A-Keylistener-Example-Program.htm>
 * <https://github.com/overtone/overtone/wiki/Live-coding>
 * <https://github.com/overtone/overtone/wiki/Getting-Started>
+
+* https://github.com/overtone/overtone/blob/master/src/overtone/sc/machinery/ugen/metadata/input.clj
+* Max Mathews: Max/MSP, Radiodrum (aka Radio-baton), etc.
+* Guy Hoffman
+* IRCAM
+* Andrew Sorensen's Extempore
